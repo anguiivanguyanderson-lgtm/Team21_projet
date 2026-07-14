@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEAM21 — Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-subtle: #F8F9FA;
+    --panel: #FFFFFF;
+    --sidebar-bg: #FFFFFF;
+    --ink: #1A1A1A;
+    --ink-soft: #3D3D3D;
+    --ink-muted: #6B6B6B;
+    --ink-faint: #A0A0A0;
+    --line: #E8E8E8;
+    --line-soft: #F0F0F0;
+    --accent: #2563EB;
+    --accent-soft: #EFF6FF;
+    --blue: #2563EB;
+    --blue-soft: #DBEAFE;
+    --blue-callout-bg: #E0F2FE;
+    --blue-callout-text: #075985;
+    --green-callout-bg: #DCFCE7;
+    --green-callout-text: #14532D;
+    --orange: #EA580C;
+    --orange-soft: #FFF7ED;
+    --radius: 10px;
+    --header-h: 72px;
+    --sidebar-w: 300px;
+    --font: 'Inter', system-ui, -apple-system, sans-serif;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 8px 24px rgba(0,0,0,.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+  /* ── Header ── */
+  header.top {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--header-h);
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 40px; z-index: 100;
+  }
+
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--ink); flex-shrink: 0;
+  }
+
+  .logo-mark {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 14px;
+    letter-spacing: -.3px; flex-shrink: 0;
+  }
+
+  .version-pill {
+    font-size: 15px; font-weight: 700; color: var(--ink);
+    padding: 2px 4px;
+  }
+
+  .header-right {
+    margin-left: auto; display: flex; align-items: center; gap: 24px;
+  }
+
+  .header-link {
+    font-size: 16px; font-weight: 600; color: var(--ink-soft);
+    transition: color .12s;
+  }
+  .header-link:hover { color: var(--ink); }
+
+  .btn-primary {
+    font-size: 14px; font-weight: 700; color: #fff;
+    background: var(--blue); border: none;
+    padding: 14px 26px; border-radius: 8px;
+    cursor: pointer; font-family: var(--font);
+    letter-spacing: .04em; text-transform: uppercase;
+    transition: opacity .12s;
+  }
+  .btn-primary:hover { opacity: .9; }
+
+  .menu-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: 7px; color: var(--ink-soft);
+  }
+
+  /* ── Layout ── */
+  .shell { display: flex; padding-top: var(--header-h); }
+
+  nav.sidebar {
+    position: fixed; top: var(--header-h); left: 0; bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--sidebar-bg);
+    overflow-y: auto; padding: 40px 24px 60px 40px;
+    z-index: 60;
+  }
+
+  .side-group { margin-bottom: 8px; }
+
+  .side-link {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 0;
+    color: var(--ink); font-size: 18px; font-weight: 700;
+    cursor: pointer; transition: color .12s;
+    position: relative;
+  }
+  .side-link:hover { color: var(--blue); }
+
+  .side-link.active {
+    color: var(--blue);
+  }
+  .side-link.active::after {
+    content: '›';
+    margin-left: auto;
+    color: var(--blue);
+    font-size: 24px;
+    font-weight: 400;
+  }
+
+  .side-num {
+    font-size: 14px; color: var(--ink-faint);
+    font-weight: 600; min-width: 20px;
+  }
+
+  .side-sub {
+    margin-left: 20px;
+    display: flex; flex-direction: column;
+    padding: 4px 0 12px;
+  }
+  .side-sub .side-link {
+    font-size: 16px; font-weight: 500;
+    color: var(--ink-muted); padding: 7px 0;
+  }
+  .side-sub .side-link:hover { color: var(--ink); }
+  .side-sub .side-link.active { color: var(--blue); font-weight: 600; }
+  .side-sub .side-link.active::after { display: none; }
+
+  .side-link.hidden { display: none; }
+
+  main.content {
+    margin-left: var(--sidebar-w);
+    max-width: 900px;
+    padding: 40px 60px 160px;
+    width: 100%;
+  }
+
+  /* ── Typography ── */
+  .chapter { padding-top: 12px; scroll-margin-top: calc(var(--header-h) + 20px); }
+
+  .chapter-eyebrow {
+    display: none;
+  }
+
+  h1.h-chapter {
+    font-size: 44px; font-weight: 800;
+    color: var(--ink); letter-spacing: -1px;
+    line-height: 1.15; margin-bottom: 32px;
+  }
+
+  .chapter-desc {
+    font-size: 20px; color: var(--ink-soft);
+    margin-bottom: 32px; line-height: 1.55;
+    font-weight: 400;
+  }
+
+  .meta-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 40px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 40px;
+    font-size: 18px;
+  }
+  .meta-row b { color: var(--ink); font-weight: 700; margin-right: 6px; }
+  .meta-row span { color: var(--ink-soft); }
+
+  h2.h-section {
+    font-size: 28px; font-weight: 700;
+    color: var(--ink);
+    margin: 48px 0 20px;
+    letter-spacing: -.4px;
+    line-height: 1.3;
+  }
+
+  h3.h-sub {
+    font-size: 22px; font-weight: 700;
+    color: var(--ink); margin: 32px 0 12px;
+  }
+
+  p { color: var(--ink-soft); margin-bottom: 20px; font-size: 18px; line-height: 1.65; }
+
+  ul.doclist { list-style: none; margin: 0 0 24px; padding: 0; }
+  ul.doclist li {
+    padding: 10px 0 10px 28px;
+    font-size: 18px; color: var(--ink-soft);
+    line-height: 1.6;
+    position: relative;
+  }
+  ul.doclist li::before {
+    content: "•";
+    position: absolute;
+    left: 8px;
+    color: var(--blue);
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+  ul.doclist li b { color: var(--ink); font-weight: 700; }
+
+  ol.doclist-num {
+    padding-left: 28px;
+    color: var(--ink-soft);
+    font-size: 18px;
+  }
+  ol.doclist-num li {
+    padding: 8px 0;
+    line-height: 1.6;
+  }
+
+  /* ── Images ── */
+  .chapter img {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    margin: 20px 0;
+    max-width: 100% !important;
+    height: auto !important;
+    width: auto;
+    display: block;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Force full-width for section images */
+  .chapter .img-full {
+    width: 100%;
+  }
+
+  /* ── Tables ── */
+  table.doctable {
+    width: 100%; border-collapse: collapse;
+    margin: 8px 0 32px;
+    font-size: 17px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  table.doctable th {
+    text-align: left; padding: 14px 20px;
+    font-size: 15px; font-weight: 700;
+    color: var(--ink);
+    background: var(--bg-subtle);
+    border-bottom: 1px solid var(--line);
+  }
+  table.doctable td {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line-soft);
+    color: var(--ink-soft);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  table.doctable tr:last-child td { border-bottom: none; }
+  table.doctable td:first-child { color: var(--ink); font-weight: 600; }
+
+  .badge {
+    display: inline-flex; align-items: center;
+    font-size: 13px; font-weight: 700;
+    padding: 4px 12px; border-radius: 999px;
+  }
+  .badge-green { background: var(--green-callout-bg); color: var(--green-callout-text); }
+  .badge-muted { background: var(--line-soft); color: var(--ink-faint); }
+
+  /* ── Callout style Sngine ── */
+  .callout {
+    background: var(--blue-callout-bg);
+    border-radius: var(--radius);
+    padding: 22px 26px;
+    margin: 28px 0;
+    font-size: 18px;
+    color: var(--blue-callout-text);
+    line-height: 1.6;
+  }
+  .callout p {
+    margin: 0;
+    color: var(--blue-callout-text);
+    font-size: 18px;
+  }
+  .callout strong { font-weight: 700; }
+  .callout a { color: var(--blue-callout-text); text-decoration: underline; font-weight: 600; }
+
+  .callout.green {
+    background: var(--green-callout-bg);
+    color: var(--green-callout-text);
+  }
+  .callout.green p { color: var(--green-callout-text); }
+  .callout.green a { color: var(--green-callout-text); }
+
+  .callout-icon { display: none; }
+
+  /* ── Example ── */
+  .example-box {
+    background: var(--bg-subtle);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+  .example-label {
+    font-size: 13px; font-weight: 800;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 12px;
+  }
+
+  /* ── Sep ── */
+  hr.sep {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 72px 0;
+  }
+
+  /* ── Chapter nav ── */
+  .chapter-nav {
+    display: flex; gap: 16px; margin-top: 56px;
+  }
+  .chapter-nav a {
+    flex: 1; border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    color: var(--ink);
+    background: var(--panel);
+    transition: border-color .12s, box-shadow .12s;
+  }
+  .chapter-nav a:hover {
+    border-color: var(--blue);
+    box-shadow: var(--shadow-sm);
+  }
+  .chapter-nav .dir {
+    font-size: 13px; color: var(--ink-faint);
+    font-weight: 700; text-transform: uppercase;
+    letter-spacing: .06em; margin-bottom: 6px;
+  }
+  .chapter-nav .ttl { font-weight: 700; font-size: 17px; color: var(--ink); }
+  .chapter-nav a.next { text-align: right; }
+
+  /* ── Step list ── */
+  .step-list { list-style: none; padding: 0; margin: 0 0 24px; }
+  .step-list li {
+    display: flex; gap: 18px; padding: 12px 0;
+    font-size: 18px; color: var(--ink-soft);
+    line-height: 1.6;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; color: #fff;
+    margin-top: 2px;
+  }
+
+  /* ── Status chips ── */
+  .status-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 24px; }
+  .status-chip {
+    font-size: 15px; font-weight: 600;
+    padding: 7px 18px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--ink-soft);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    :root { --sidebar-w: 260px; }
+    main.content { padding: 32px 40px 100px; }
+    h1.h-chapter { font-size: 36px; }
+  }
+  @media (max-width: 860px) {
+    .menu-toggle { display: flex; }
+    header.top { padding: 0 20px; }
+    .header-link { display: none; }
+    nav.sidebar {
+      transform: translateX(-100%);
+      transition: transform .2s ease;
+      width: 80vw; max-width: 320px;
+      padding: 24px;
+    }
+    nav.sidebar.open {
+      transform: translateX(0);
+      box-shadow: var(--shadow-md);
+    }
+    main.content { margin-left: 0; padding: 24px 20px 80px; }
+    h1.h-chapter { font-size: 30px; }
+    .chapter-desc { font-size: 17px; }
+    p, ul.doclist li, .step-list li { font-size: 16px; }
+    h2.h-section { font-size: 22px; }
+  }
+
+  @media print {
+    header.top, nav.sidebar, .chapter-nav, .menu-toggle { display: none !important; }
+    main.content { margin: 0; max-width: 100%; padding: 0; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+    </svg>
+  </button>
+
+  <a class="brand" href="#intro">
+    <span class="logo-mark">T21</span>
+    <span class="version-pill">v3.0.3</span>
+  </a>
+
+  <div class="header-right">
+    <a class="header-link" href="#intro">Documentation</a>
+    <a class="header-link" href="#dashboard">Modules</a>
+    <button class="btn-primary" onclick="window.print()">IMPRIMER</button>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+
+    <div class="side-group">
+      <a class="side-link" data-target="intro">Introduction</a>
+      <a class="side-link" data-target="roles">Rôles utilisateurs</a>
+    </div>
+
+    <div class="side-group">
+      <a class="side-link" data-target="dashboard">Tableau de bord</a>
+      <a class="side-link" data-target="todo">Todo Liste</a>
+      <a class="side-link" data-target="statuses">Statuses</a>
+      <a class="side-link" data-target="projets">Projets</a>
+      <div class="side-sub">
+        <a class="side-link" data-target="projets-favoris">Projets favoris</a>
+        <a class="side-link" data-target="projets-calendrier">Calendrier</a>
+        <a class="side-link" data-target="projets-bulk">Bulk Upload</a>
+      </div>
+      <a class="side-link" data-target="taches">Tâches</a>
+      <a class="side-link" data-target="prospections">Prospections</a>
+      <a class="side-link" data-target="paie">Fiche de paie</a>
+      <a class="side-link" data-target="reunions">Réunions</a>
+      <a class="side-link" data-target="chat">Chat</a>
+      <a class="side-link" data-target="utilisateurs">Utilisateurs</a>
+      <a class="side-link" data-target="clienteles">Clientèles</a>
+      <a class="side-link" data-target="connaissances">Base de connaissances</a>
+      <a class="side-link" data-target="contrats">Contrats</a>
+      <a class="side-link" data-target="conges">Demandes de congé</a>
+      <a class="side-link" data-target="temps">Suivi du temps</a>
+      <a class="side-link" data-target="notes">Notes</a>
+      <a class="side-link" data-target="profil">Mon profil</a>
+    </div>
+  </nav>
+
+  <main class="content">
+
+    <!-- INTRO -->
+    <section class="chapter" id="intro">
+      <h1 class="h-chapter">TEAM21 — L'ERP complet pour votre entreprise</h1>
+      <p class="chapter-desc">TEAM21 est un ERP conçu pour centraliser la gestion des projets, des ressources humaines, de la relation client et de la finance. Lancez et pilotez toute votre activité depuis un seul outil.</p>
+
+      <div class="meta-row">
+        <div><b>Version :</b> <span>3.0.3</span></div>
+        <div><b>Créé :</b> <span> 2024</span></div>
+        <div><b>Auteur :</b> <span>TEAM21</span></div>
+        <div><b>Mis à jour :</b> <span>2026</span></div>
+      </div>
+
+      <div class="callout">
+        <p>Si vous avez des questions qui dépassent le cadre de cette documentation, n'hésitez pas à nous contacter via le <a href="#">Centre de support</a>.</p>
+      </div>
+
+      <div class="callout green">
+        <p>Cette documentation présente, module par module, l'ensemble des fonctionnalités de TEAM21 — à quoi chaque module sert, qui peut y accéder, comment il fonctionne concrètement, et quelles bonnes pratiques adopter.</p>
+      </div>
+
+      <h2 class="h-section">Structure de la documentation</h2>
+      <ul class="doclist">
+        <li><b>À quoi ça sert / Pour qui</b> — objectif du module et à qui il s'adresse.</li>
+        <li><b>Comment ça fonctionne</b> — le déroulé étape par étape.</li>
+        <li><b>Ce que vous y trouvez</b> — colonnes, actions et informations disponibles.</li>
+        <li><b>Connecté avec</b> — les liens avec les autres modules.</li>
+        <li><b>Astuce</b> — un conseil pour une utilisation optimale.</li>
+      </ul>
+    </section>
+
+    <hr class="sep">
+
+    <!-- ROLES -->
+    <section class="chapter" id="roles">
+      <h1 class="h-chapter">Rôles utilisateurs</h1>
+      <p class="chapter-desc">Quatre niveaux d'accès, utilisés de façon transversale dans tous les modules.</p>
+
+      <table class="doctable">
+        <tr><th>Rôle</th><th>Périmètre</th></tr>
+        <tr><td>Super Admin</td><td>Accès complet à l'ensemble des données et paramètres de l'entreprise.</td></tr>
+        <tr><td>Admin</td><td>Accès à son périmètre — projets, équipe ou clients gérés.</td></tr>
+        <tr><td>Employé / Team Member</td><td>Accès à ses propres données — tâches assignées, projets où il est membre.</td></tr>
+        <tr><td>Client</td><td>Consultation seule de ce qui le concerne. Les modules internes ne lui sont pas accessibles.</td></tr>
+      </table>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 1. TABLEAU DE BORD -->
+    <section class="chapter" id="dashboard">
+      <h1 class="h-chapter">Tableau de bord</h1>
+      <p class="chapter-desc">Votre cockpit quotidien pour piloter l'activité de l'entreprise en un coup d'œil.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le Tableau de bord est la page d'accueil de TEAM21. En un seul coup d'œil, il donne une vue d'ensemble de l'activité — projets, tâches, équipe, clients, anniversaires et absences.</p>
+
+      <h2 class="h-section">Pour qui</h2>
+      <table class="doctable">
+        <tr><th>Rôle</th><th>Périmètre</th><th>Accès</th></tr>
+        <tr><td>Super Admin</td><td>Vue complète de l'entreprise</td><td><span class="badge badge-green">Oui</span></td></tr>
+        <tr><td>Admin</td><td>Vue de son périmètre</td><td><span class="badge badge-green">Oui</span></td></tr>
+        <tr><td>Employé</td><td>Vue de ses propres données</td><td><span class="badge badge-green">Oui</span></td></tr>
+        <tr><td>Client</td><td>—</td><td><span class="badge badge-muted">N/A</span></td></tr>
+      </table>
+
+      <h2 class="h-section">Comment ça fonctionne</h2>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><div><strong>Collecte</strong> — TEAM21 agrège automatiquement les données de tous les modules.</div></li>
+        <li><span class="step-num">2</span><div><strong>Analyse</strong> — les indicateurs sont calculés et organisés par catégorie.</div></li>
+        <li><span class="step-num">3</span><div><strong>Visualisation</strong> — les informations clés s'affichent sous forme de tableaux et de graphiques.</div></li>
+        <li><span class="step-num">4</span><div><strong>Action</strong> — vous prenez rapidement les bonnes décisions.</div></li>
+      </ol>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>4 KPI clés</b> — nombre de projets totaux, tâches totales, utilisateurs et clientèles.</li>
+      </ul>
+      <img src="1.1.png" alt="4 KPI clés" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Graphiques d'avancement</b> — Aperçu des projets et des tâches, répartis par statut.</li>
+      </ul>
+      <img src="2.2.png" alt="Graphiques d'avancement" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Vie d'équipe</b> — prochains anniversaires, anniversaires d'adhésion et membres en congé.</li>
+      </ul>
+      <img src="3.3.png" alt="Vie d'équipe" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Raccourcis vers vos modules</b> — accès direct vers Projets, Tâches, etc.</li>
+        <li><b>Todo liste rapide</b> — ajout d'une tâche en un champ, sans quitter le tableau de bord.</li>
+      </ul>
+      <img src="4.4.png" alt="Todo liste rapide" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Suivi détaillé des tâches</b> — tableau filtrable par projet, statut, dates d'échéance et recherche.</li>
+      </ul>
+      <img src="5.5.png" alt="Suivi des tâches" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#roles"><div class="dir">Précédent</div><div class="ttl">Rôles utilisateurs</div></a>
+        <a class="next" href="#todo"><div class="dir">Suivant</div><div class="ttl">Todo Liste</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 2. TODO LISTE -->
+    <section class="chapter" id="todo">
+      <h1 class="h-chapter">Todo Liste</h1>
+      <p class="chapter-desc">Créez et gérez vos tâches personnelles en quelques secondes.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>La Todo Liste permet de noter rapidement des tâches personnelles, indépendantes des projets, pour ne rien oublier au fil de la journée.</p>
+
+      <h2 class="h-section">Comment ça fonctionne</h2>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><div>Cliquez sur <strong>Todo Liste</strong> dans le menu latéral.</div></li>
+        <li><span class="step-num">2</span><div>Saisissez un intitulé clair et précis.</div></li>
+        <li><span class="step-num">3</span><div>Cliquez sur le bouton <strong>Ajouter</strong>.</div></li>
+      </ol>
+      <img src="6.6.png" alt="Ajouter une todo" class="img-full"/>
+
+      <ol class="step-list">
+        <li><span class="step-num">4</span><div>La tâche apparaît immédiatement dans la liste.</div></li>
+        <li><span class="step-num">5</span><div>Sans tâche, le message <em>Aucune Todo créée</em> s'affiche.</div></li>
+      </ol>
+      <img src="7.7.png" alt="Liste vide" class="img-full"/>
+
+      <h2 class="h-section">Bonnes pratiques</h2>
+      <ul class="doclist">
+        <li><b>Clarté</b> — privilégiez des titres courts et précis.</li>
+        <li><b>Action</b> — commencez par un verbe (« Appeler le client »).</li>
+        <li><b>Habitude</b> — consultez votre liste chaque matin pour rester organisé.</li>
+        <li><b>Nettoyage</b> — supprimez régulièrement les tâches terminées.</li>
+      </ul>
+
+      <h2 class="h-section">Problèmes fréquents</h2>
+      <table class="doctable">
+        <tr><th>Problème</th><th>Solution</th></tr>
+        <tr><td>Liste vide</td><td>Ajoutez une première tâche.</td></tr>
+        <tr><td>Intitulé vague</td><td>Soyez précis dans la formulation.</td></tr>
+        <tr><td>Trop de tâches accumulées</td><td>Supprimez les tâches terminées régulièrement.</td></tr>
+      </table>
+
+      <div class="chapter-nav">
+        <a href="#dashboard"><div class="dir">Précédent</div><div class="ttl">Tableau de bord</div></a>
+        <a class="next" href="#statuses"><div class="dir">Suivant</div><div class="ttl">Statuses</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 3. STATUSES -->
+    <section class="chapter" id="statuses">
+      <h1 class="h-chapter">Statuses</h1>
+      <p class="chapter-desc">Configurez les statuts utilisés dans vos projets et tâches.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Statuses permet de définir et personnaliser les statuts utilisés à travers TEAM21 pour qualifier l'avancement des projets et des tâches.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Ajouter un statut</b> — bouton Add Statuses pour créer un nouveau statut.</li>
+        <li><b>Rechercher</b> — champ Search pour retrouver un statut spécifique.</li>
+        <li><b>Liste des statuts</b> — l'ensemble des statuts avec leur type et leur couleur.</li>
+        <li><b>Actions</b> — menu à trois points pour modifier ou supprimer un statut.</li>
+      </ul>
+
+      <h2 class="h-section">Statuts par défaut</h2>
+      <div class="status-row">
+        <span class="status-chip">En attente</span>
+        <span class="status-chip">En cours</span>
+        <span class="status-chip">Effectué</span>
+        <span class="status-chip">Retardé</span>
+        <span class="status-chip">Annulé</span>
+      </div>
+      <img src="8.8.png" alt="Statuts par défaut" class="img-full"/>
+
+      <table class="doctable">
+        <tr><th>Type</th><th>Couleur</th></tr>
+        <tr><td>En-Attente</td><td>Info — bleu clair</td></tr>
+        <tr><td>En Cours</td><td>Secondary — bleu foncé</td></tr>
+        <tr><td>Effectué</td><td>Success — vert</td></tr>
+        <tr><td>Retardé</td><td>Warning — orange</td></tr>
+        <tr><td>Annulé</td><td>Danger — rouge</td></tr>
+      </table>
+
+      <div class="chapter-nav">
+        <a href="#todo"><div class="dir">Précédent</div><div class="ttl">Todo Liste</div></a>
+        <a class="next" href="#projets"><div class="dir">Suivant</div><div class="ttl">Projets</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 4. PROJETS -->
+    <section class="chapter" id="projets">
+      <h1 class="h-chapter">Projets</h1>
+      <p class="chapter-desc">Gérez tous vos projets d'entreprise en un seul endroit.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Projets permet de créer, planifier et suivre tous les projets de l'entreprise. C'est le cœur de l'activité — c'est là que se passe l'essentiel du travail quotidien.</p>
+
+      <h2 class="h-section">Pour qui</h2>
+      <table class="doctable">
+        <tr><th>Rôle</th><th>Périmètre</th></tr>
+        <tr><td>Super Admin</td><td>Tous les projets</td></tr>
+        <tr><td>Admin</td><td>Projets qu'il gère</td></tr>
+        <tr><td>Employé</td><td>Projets où il est assigné</td></tr>
+        <tr><td>Client</td><td>Consultation seule</td></tr>
+      </table>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Affichage</b> — basculez entre vue en grille et vue en liste.</li>
+        <li><b>Nouveau projet</b> — bouton Créer un projet.</li>
+      </ul>
+      <img src="10.10.png" alt="Créer un projet" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Filtres par statut</b> — Tous, En-Attente, En Cours, Effectué, Annulé, Retardé.</li>
+      </ul>
+      <img src="11.11.png" alt="Filtres statut" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Tri</b> — par date de création, la plus récente d'abord par défaut.</li>
+        <li><b>5 vues</b> — Projets, Favoris, Calendrier, Diagramme de Gantt, Bulk Upload.</li>
+      </ul>
+      <img src="9.9.png" alt="5 vues" class="img-full"/>
+
+      <h2 class="h-section">Connecté avec</h2>
+      <ul class="doclist">
+        <li><b>Tâches</b> — chaque projet contient des tâches.</li>
+        <li><b>Clientèles</b> — un projet est lié à un client.</li>
+        <li><b>Contrats</b> — les contrats associés au projet.</li>
+        <li><b>Suivi du temps</b> — le temps passé par projet.</li>
+      </ul>
+
+      <div class="example-box">
+        <div class="example-label">Exemple</div>
+        <p style="margin-bottom:12px;">Un nouveau client commande un site web :</p>
+        <ol class="doclist-num">
+          <li>Je crée le projet « Site web Dupont ».</li>
+          <li>J'assigne 3 développeurs et 1 designer.</li>
+          <li>Je fixe une deadline à 3 mois.</li>
+          <li>L'équipe crée les tâches nécessaires.</li>
+          <li>Le projet est livré en temps et en heure.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="chapter" id="projets-favoris">
+      <h1 class="h-chapter">Projets favoris</h1>
+      <p class="chapter-desc">Retrouvez vos projets prioritaires en un clic.</p>
+      <ul class="doclist">
+        <li><b>Accès</b> — via le sous-menu Projets › Projets favoris.</li>
+      </ul>
+      <img src="14.14_1.png" alt="Projets favoris" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Marquer un favori</b> — cliquez l'icône étoile pour l'ajouter.</li>
+        <li><b>Créer un projet</b> — le bouton reste disponible depuis cette vue.</li>
+      </ul>
+      <img src="17.17.png" alt="Créer favori" class="img-full"/>
+    </section>
+
+    <section class="chapter" id="projets-calendrier">
+      <h1 class="h-chapter">Vue du calendrier</h1>
+      <p class="chapter-desc">Visualisez vos projets sur un calendrier mensuel.</p>
+      <ul class="doclist">
+        <li><b>Accès</b> — via le sous-menu Projets › Vue du calendrier.</li>
+      </ul>
+      <img src="19.19.png" alt="Vue calendrier" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Navigation</b> — flèches précédent / suivant entre les mois.</li>
+      </ul>
+      <img src="20.20.png" alt="Navigation" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Projets dans le temps</b> — ils apparaissent aux dates correspondantes de leur cycle de vie.</li>
+      </ul>
+    </section>
+
+    <section class="chapter" id="projets-bulk">
+      <h1 class="h-chapter">Bulk Upload</h1>
+      <p class="chapter-desc">Importez plusieurs projets en une seule opération via un fichier CSV.</p>
+      <ol class="step-list">
+        <li><span class="step-num">1</span><div>Lisez attentivement les instructions lors de la préparation des données.</div></li>
+      </ol>
+      <img src="12.12.png" alt="Instructions" class="img-full"/>
+      <ol class="step-list">
+        <li><span class="step-num">2</span><div>Téléchargez le fichier d'exemple pour réduire les erreurs.</div></li>
+        <li><span class="step-num">3</span><div>Choisissez le type d'opération — Téléchargement ou Mise à jour.</div></li>
+        <li><span class="step-num">4</span><div>Sélectionnez votre fichier <code>.csv</code> puis cliquez sur <strong>Soumettre</strong>.</div></li>
+      </ol>
+      <p>Des modèles et instructions sont disponibles en bas de page : exemple de fichier, instructions de téléchargement groupé, exemple de mise à jour, instructions de mise à jour en masse.</p>
+      <img src="21.21.png" alt="Modèles" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#statuses"><div class="dir">Précédent</div><div class="ttl">Statuses</div></a>
+        <a class="next" href="#taches"><div class="dir">Suivant</div><div class="ttl">Tâches</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 5. TÂCHES -->
+    <section class="chapter" id="taches">
+      <h1 class="h-chapter">Tâches</h1>
+      <p class="chapter-desc">Suivez et filtrez toutes les tâches de vos projets.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Les tâches sont les actions concrètes qui composent les projets. Chaque tâche a un responsable, une priorité, une échéance et un statut — c'est l'unité de travail de base de TEAM21.</p>
+
+      <h2 class="h-section">Pour qui</h2>
+      <table class="doctable">
+        <tr><th>Rôle</th><th>Périmètre</th></tr>
+        <tr><td>Super Admin</td><td>Toutes les tâches</td></tr>
+        <tr><td>Admin</td><td>Tâches de ses projets</td></tr>
+        <tr><td>Employé</td><td>Tâches qui lui sont assignées</td></tr>
+        <tr><td>Client</td><td>Non applicable</td></tr>
+      </table>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Créer une tâche</b> — bouton Créer une tâche.</li>
+      </ul>
+      <img src="22.22.png" alt="Créer tâche" class="img-full"/>
+
+      <ul class="doclist">
+        <li><b>Filtres</b> — par nom du projet, statut, dates d'échéance, client.</li>
+        <li><b>6 colonnes</b> — Tâches, Projets, Utilisateurs, Clientèles, Statut, Action.</li>
+      </ul>
+      <img src="23.23.png" alt="Colonnes tâches" class="img-full"/>
+
+      <h2 class="h-section">Statuts d'une tâche</h2>
+      <table class="doctable">
+        <tr><th>Statut</th><th>Signification</th></tr>
+        <tr><td>Effectuée</td><td>Tâche terminée avec succès.</td></tr>
+        <tr><td>En cours</td><td>Tâche en cours de réalisation.</td></tr>
+        <tr><td>En attente</td><td>En attente d'une action ou d'une dépendance.</td></tr>
+        <tr><td>Retardée</td><td>Tâche en retard sur la deadline.</td></tr>
+      </table>
+
+      <h2 class="h-section">Connecté avec</h2>
+      <ul class="doclist">
+        <li><b>Projets</b> — chaque tâche appartient à un projet.</li>
+        <li><b>Employés</b> — assignation des tâches.</li>
+        <li><b>Suivi du temps</b> — temps passé sur chaque tâche.</li>
+        <li><b>Pièces jointes</b> — fichiers et documents liés.</li>
+        <li><b>Commentaires</b> — discussions et retours sur la tâche.</li>
+      </ul>
+
+      <div class="example-box">
+        <div class="example-label">Exemple — Projet Site web Dupont</div>
+        <p style="margin:0">
+          Créer la maquette <strong>(Effectuée)</strong> → Développer le site <strong>(En cours)</strong> → Rédiger les contenus <strong>(En attente)</strong> → Tests et corrections <strong>(Retardée)</strong> → Livraison au client.
+        </p>
+      </div>
+
+      <div class="chapter-nav">
+        <a href="#projets-bulk"><div class="dir">Précédent</div><div class="ttl">Bulk Upload</div></a>
+        <a class="next" href="#prospections"><div class="dir">Suivant</div><div class="ttl">Prospections</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 6. PROSPECTIONS -->
+    <section class="chapter" id="prospections">
+      <h1 class="h-chapter">Prospections</h1>
+      <p class="chapter-desc">Suivez vos prospects du premier contact à la signature.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Prospections suit chaque prospect depuis le premier contact jusqu'à la signature. Le pipeline visuel aide à suivre l'avancement commercial et à ne perdre aucune opportunité.</p>
+
+      <h2 class="h-section">Étapes du pipeline</h2>
+      <img src="24.24.png" alt="Pipeline" class="img-full"/>
+      <table class="doctable">
+        <tr><th>Étape</th><th>Signification</th></tr>
+        <tr><td>Nouveau</td><td>Découverte du contact.</td></tr>
+        <tr><td>Admissible</td><td>Intérêt confirmé, prospect qualifié.</td></tr>
+        <tr><td>Discussion</td><td>Échanges et négociation en cours.</td></tr>
+        <tr><td>Gagné</td><td>Signature — affaire remportée.</td></tr>
+        <tr><td>Perdu</td><td>Opportunité non concrétisée.</td></tr>
+      </table>
+
+      <h2 class="h-section">Pour qui</h2>
+      <table class="doctable">
+        <tr><th>Rôle</th><th>Périmètre</th></tr>
+        <tr><td>Super Admin</td><td>Tous les prospects</td></tr>
+        <tr><td>Admin</td><td>Prospects de son équipe</td></tr>
+        <tr><td>Commercial</td><td>Ses propres prospects</td></tr>
+        <tr><td>Client</td><td>Non applicable</td></tr>
+      </table>
+
+      <h2 class="h-section">Connecté avec</h2>
+      <ul class="doclist">
+        <li><b>Clientèles</b> — les prospects sont liés à une fiche client.</li>
+        <li><b>Projets</b> — un prospect gagné devient un projet.</li>
+        <li><b>Contrats</b> — transformation en contrat après signature.</li>
+        <li><b>Rapports</b> — analyses du pipeline commercial.</li>
+      </ul>
+
+      <div class="example-box">
+        <div class="example-label">Exemple — Vendre un site web</div>
+        <ol class="doclist-num">
+          <li>Le prospect remplit un formulaire de contact.</li>
+          <li>Le besoin est confirmé — prospect qualifié.</li>
+          <li>RDV, devis et négociation.</li>
+          <li>Le client signe le contrat.</li>
+        </ol>
+      </div>
+
+      <div class="chapter-nav">
+        <a href="#taches"><div class="dir">Précédent</div><div class="ttl">Tâches</div></a>
+        <a class="next" href="#paie"><div class="dir">Suivant</div><div class="ttl">Fiche de paie</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 7. FICHE DE PAIE -->
+    <section class="chapter" id="paie">
+      <h1 class="h-chapter">Fiche de paie</h1>
+      <p class="chapter-desc">Consultez et gérez les bulletins de salaire de vos équipes.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Fiche de paie centralise l'émission et la consultation des bulletins de salaire des membres de l'équipe.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Créer une fiche</b> — bouton +Create Payslip.</li>
+      </ul>
+      <img src="27.27.png" alt="Créer fiche" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Rechercher un salarié</b> — champ Search.</li>
+      </ul>
+      <img src="25.25.png" alt="Rechercher" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Colonnes disponibles</b> — Fiche de paie, Nom d'utilisateur, Bulletin du mois, Salaire de base, Total des gains, Déductions, Salaire net, Date de paiement, Méthode de paiement, Statut.</li>
+      </ul>
+      <img src="26.26.png" alt="Colonnes" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#prospections"><div class="dir">Précédent</div><div class="ttl">Prospections</div></a>
+        <a class="next" href="#reunions"><div class="dir">Suivant</div><div class="ttl">Réunions</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 8. RÉUNIONS -->
+    <section class="chapter" id="reunions">
+      <h1 class="h-chapter">Réunions</h1>
+      <p class="chapter-desc">Organisez et suivez toutes vos réunions d'équipe.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Réunions permet de planifier, organiser et retrouver toutes les réunions de l'équipe, internes ou avec des clients.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Créer une réunion</b> — bouton Créer une réunion.</li>
+      </ul>
+      <img src="28.28.png" alt="Créer réunion" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Filtrer par dates</b> — champ Meeting Dates Between Range.</li>
+        <li><b>Colonnes disponibles</b> — Titre, Créé par, Utilisateurs, Clientèles, Type, Plateforme, Lien et champs de planification.</li>
+      </ul>
+      <img src="29.29.png" alt="Colonnes" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#paie"><div class="dir">Précédent</div><div class="ttl">Fiche de paie</div></a>
+        <a class="next" href="#chat"><div class="dir">Suivant</div><div class="ttl">Chat</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 10. CHAT -->
+    <section class="chapter" id="chat">
+      <h1 class="h-chapter">Chat</h1>
+      <p class="chapter-desc">Communiquez avec votre équipe en temps réel.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le Chat intégré permet d'échanger en temps réel avec les membres de l'équipe, sans quitter TEAM21.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Boîte de discussion</b> — zone d'échange centrale.</li>
+      </ul>
+      <img src="30.30.png" alt="Boîte discussion"/>
+      <ul class="doclist">
+        <li><b>Rechercher un utilisateur</b> — champ Type to search and select users.</li>
+        <li><b>Discussion privée</b> — conversation en tête-à-tête avec un collègue.</li>
+      </ul>
+      <img src="33.33.png" alt="Discussion privée" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Créer un groupe</b> — bouton + à côté de Discussion de groupe.</li>
+      </ul>
+      <img src="32.32.png" alt="Créer groupe" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#reunions"><div class="dir">Précédent</div><div class="ttl">Réunions</div></a>
+        <a class="next" href="#utilisateurs"><div class="dir">Suivant</div><div class="ttl">Utilisateurs</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 11. UTILISATEURS -->
+    <section class="chapter" id="utilisateurs">
+      <h1 class="h-chapter">Utilisateurs</h1>
+      <p class="chapter-desc">Gérez les membres et les rôles de votre équipe.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Utilisateurs permet de gérer les membres de l'équipe — leurs rôles, leurs droits d'accès et leur charge de travail.</p>
+
+      <h2 class="h-section">Rôles disponibles</h2>
+      <ul class="doclist">
+        <li><b>Super Admin</b> — accès complet à l'entreprise.</li>
+        <li><b>Admin</b> — gestion d'un périmètre défini.</li>
+        <li><b>Team Member</b> — accès à ses propres données et tâches assignées.</li>
+      </ul>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Identité</b> — nom, email et photo de chaque membre.</li>
+      </ul>
+      <img src="34.34.png" alt="Identité"/>
+      <ul class="doclist">
+        <li><b>Rôle</b> — badge indiquant le rôle attribué.</li>
+        <li><b>Charge de travail</b> — nombre de projets, tâches et prospections assignés.</li>
+        <li><b>Statut</b> — indique si le compte est actif.</li>
+      </ul>
+      <img src="36.36.png" alt="Statut" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#chat"><div class="dir">Précédent</div><div class="ttl">Chat</div></a>
+        <a class="next" href="#clienteles"><div class="dir">Suivant</div><div class="ttl">Clientèles</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 12. CLIENTÈLES -->
+    <section class="chapter" id="clienteles">
+      <h1 class="h-chapter">Clientèles</h1>
+      <p class="chapter-desc">Gérez tous vos clients et leurs informations.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Clientèles centralise les fiches de tous les clients de l'entreprise — coordonnées, entreprise associée, responsable de compte et statut.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Ajouter un client</b> — bouton Ajouter un client.</li>
+      </ul>
+      <img src="37.37.png" alt="Ajouter client" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Rechercher</b> — champ Search.</li>
+        <li><b>5 colonnes</b> — Clientèles, Entreprise, Assigné, Statut, Action.</li>
+      </ul>
+      <img src="37.38.png" alt="Colonnes clientèles" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#utilisateurs"><div class="dir">Précédent</div><div class="ttl">Utilisateurs</div></a>
+        <a class="next" href="#connaissances"><div class="dir">Suivant</div><div class="ttl">Base de connaissances</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 13. BASE DE CONNAISSANCES -->
+    <section class="chapter" id="connaissances">
+      <h1 class="h-chapter">Base de connaissances</h1>
+      <p class="chapter-desc">Centralisez et partagez le savoir de votre entreprise.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>La Base de connaissances regroupe les articles, procédures et ressources internes de l'entreprise, organisés par groupe.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Ajouter un article</b> — bouton Ajouter un article et gestion des Groupes d'articles.</li>
+        <li><b>Filtrer</b> — par groupe et par dates.</li>
+      </ul>
+      <img src="38.38.png" alt="Filtres" class="img-full"/>
+      <ul class="doclist">
+        <li><b>3 colonnes</b> — Titre, Nom de groupe, Date d'attribution.</li>
+      </ul>
+      <img src="39.39.png" alt="Colonnes" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#clienteles"><div class="dir">Précédent</div><div class="ttl">Clientèles</div></a>
+        <a class="next" href="#contrats"><div class="dir">Suivant</div><div class="ttl">Contrats</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 14. CONTRATS -->
+    <section class="chapter" id="contrats">
+      <h1 class="h-chapter">Contrats</h1>
+      <p class="chapter-desc">Centralisez et suivez tous vos contrats clients.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Contrats centralise tous les contrats signés ou en cours avec les clients, liés à un projet et à une valeur financière.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Créer un contrat</b> — boutons Ajouter un type de contrat et Créer des contrats.</li>
+      </ul>
+      <img src="40.40.png" alt="Créer contrat" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Filtrer</b> — par projet et par utilisateurs.</li>
+        <li><b>Colonnes</b> — Identifiant, Titre, Client, Projet, Type de contrat, Valeur, Statut signé, Action.</li>
+      </ul>
+      <img src="41.41.png" alt="Colonnes" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#connaissances"><div class="dir">Précédent</div><div class="ttl">Base de connaissances</div></a>
+        <a class="next" href="#conges"><div class="dir">Suivant</div><div class="ttl">Demandes de congé</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 15. CONGÉS -->
+    <section class="chapter" id="conges">
+      <h1 class="h-chapter">Demandes de congé</h1>
+      <p class="chapter-desc">Gérez les absences et les congés de votre équipe.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Ce module permet aux collaborateurs de soumettre des demandes de congé et aux responsables de les valider ou de les refuser.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Soumettre une demande</b> — bouton Demande de congé.</li>
+        <li><b>Rechercher</b> — champ Search.</li>
+        <li><b>5 colonnes</b> — Nom, Durée du congé, Raison, Statut, Action.</li>
+      </ul>
+
+      <div class="chapter-nav">
+        <a href="#contrats"><div class="dir">Précédent</div><div class="ttl">Contrats</div></a>
+        <a class="next" href="#temps"><div class="dir">Suivant</div><div class="ttl">Suivi du temps</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 16. SUIVI DU TEMPS -->
+    <section class="chapter" id="temps">
+      <h1 class="h-chapter">Suivi du temps</h1>
+      <p class="chapter-desc">Mesurez le temps passé sur chaque projet et tâche.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le Suivi du temps permet d'enregistrer et d'analyser le temps consacré par chaque collaborateur à ses projets et tâches.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>4 indicateurs</b> — temps du jour, durée totale de la semaine, du mois et de l'année.</li>
+      </ul>
+      <img src="43.43.png" alt="Indicateurs" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Filtrer</b> — par dates et par utilisateurs.</li>
+        <li><b>8 colonnes</b> — Utilisateurs, Heure de début, Heure de fin, Durée, Message, Projet, Date, Action.</li>
+        <li><b>Chronomètre intégré</b> — icône en bas à droite pour démarrer / arrêter un chronométrage en direct.</li>
+        <li><b>Saisie manuelle</b> — bouton Ajouter une feuille de temps.</li>
+      </ul>
+      <img src="44.44.png" alt="Saisie manuelle" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#conges"><div class="dir">Précédent</div><div class="ttl">Demandes de congé</div></a>
+        <a class="next" href="#notes"><div class="dir">Suivant</div><div class="ttl">Notes</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 17. NOTES -->
+    <section class="chapter" id="notes">
+      <h1 class="h-chapter">Notes</h1>
+      <p class="chapter-desc">Prenez et centralisez vos notes de travail.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>Le module Notes offre un espace simple pour rédiger et conserver des notes de travail personnelles, accessibles à tout moment.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Créer une note</b> — bouton Créer une note.</li>
+      </ul>
+      <img src="45.45.png" alt="Créer note" class="img-full"/>
+      <ul class="doclist">
+        <li><b>État vide</b> — le message Aucune note trouvée s'affiche lorsqu'aucune note n'existe.</li>
+      </ul>
+
+      <div class="chapter-nav">
+        <a href="#temps"><div class="dir">Précédent</div><div class="ttl">Suivi du temps</div></a>
+        <a class="next" href="#profil"><div class="dir">Suivant</div><div class="ttl">Mon profil</div></a>
+      </div>
+    </section>
+
+    <hr class="sep">
+
+    <!-- 19. MON PROFIL -->
+    <section class="chapter" id="profil">
+      <h1 class="h-chapter">Mon profil</h1>
+      <p class="chapter-desc">Personnalisez vos informations et vos préférences.</p>
+
+      <h2 class="h-section">À quoi ça sert</h2>
+      <p>La page Profil est l'espace personnel de chaque utilisateur pour gérer ses informations et ses préférences dans TEAM21.</p>
+
+      <h2 class="h-section">Ce que vous y trouvez</h2>
+      <ul class="doclist">
+        <li><b>Photo de profil</b> — champ Choose file pour ajouter ou modifier votre photo.</li>
+        <li><b>Informations personnelles</b> — Prénom, Nom, E-mail, Contact, Date de naissance, Date d'adhésion, Genre, Description.</li>
+      </ul>
+      <img src="50.50.png" alt="Informations personnelles" class="img-full"/>
+      <ul class="doclist">
+        <li><b>Thème</b> — choix entre thème clair et thème sombre.</li>
+        <li><b>Mot de passe</b> — champs Mot de passe et Confirmer le mot de passe. Laissez vide pour ne pas modifier.</li>
+        <li><b>Enregistrer</b> — bouton Modifier Profil puis Sauvegarder les modifications.</li>
+      </ul>
+      <img src="80.80.png" alt="Sauvegarder" class="img-full"/>
+
+      <div class="chapter-nav">
+        <a href="#notes"><div class="dir">Précédent</div><div class="ttl">Notes</div></a>
+        <a class="next" href="#intro"><div class="dir">Retour au début</div><div class="ttl">Introduction</div></a>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  const sidebar = document.getElementById('sidebar');
+  document.getElementById('menuToggle').addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+  document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('open') &&
+        !sidebar.contains(e.target) &&
+        !document.getElementById('menuToggle').contains(e.target)) {
+      sidebar.classList.remove('open');
+    }
+  });
+
+  const links = Array.from(document.querySelectorAll('.side-link[data-target]'));
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      const el = document.getElementById(link.getAttribute('data-target'));
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      sidebar.classList.remove('open');
+    });
+  });
+
+  const sections = links
+    .map(l => document.getElementById(l.getAttribute('data-target')))
+    .filter(Boolean);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.remove('active'));
+        const active = links.find(l => l.getAttribute('data-target') === id);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
